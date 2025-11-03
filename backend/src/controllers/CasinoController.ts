@@ -1626,7 +1626,7 @@ export class CasinoController extends ApiController {
   saveCasinoMatchData = async (req: Request, res: Response) => {
     try {
       const { data } = req.body
-      console.log(data)
+    
       await CasinoGameResult.findOneAndUpdate(
         { mid: data.mid },
         { mid: data.mid, gameType: data.gameType, data: { ...data, status: 'processing' } },

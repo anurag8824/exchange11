@@ -1545,7 +1545,6 @@ class CasinoController extends ApiController_1.ApiController {
         this.saveCasinoMatchData = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { data } = req.body;
-                console.log(data);
                 yield CasinoGameResult_1.CasinoGameResult.findOneAndUpdate({ mid: data.mid }, { mid: data.mid, gameType: data.gameType, data: Object.assign(Object.assign({}, data), { status: 'processing' }) }, { new: true, upsert: true });
                 this.success(res, {}, 'Save casino match data successfully!');
             }
