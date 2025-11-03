@@ -4,6 +4,7 @@ export const types: any = {
   lucky7B: "lucky7B",
   teen3: "teen3",
   teen20b: "teen20b",
+  teen20: "teen20",
   queen: "Queen",
   aaa: "AAA",
   ddb: "ddb",
