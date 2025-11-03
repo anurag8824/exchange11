@@ -15,12 +15,12 @@ export const types: any = {
   card32: "card32a",
   Tp1Day: "Tp1Day",
   dt20b: "dt20b",
-  onedaypoker: "onedaypoker",
+poker: "poker",
   onedaypoker20: "onedaypoker20",
   dragontiger1Day: "dragontiger1Day",
   dtl20: "dtl20",
   race2020: "race2020",
-  poker6player: "poker6player",
+  poker6: "poker6",
   cmeter2020: "cmeter2020",
   Superover: "Superover",
   testtp: "testtp",
@@ -82,5 +82,7 @@ export const newCasino = [
   "lucky7",
   "teen",
   "dt202",
-  "dt20"
+  "dt20",
+  "poker6",
+  "poker",
 ];
