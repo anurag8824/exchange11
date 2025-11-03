@@ -15,7 +15,7 @@ export const types: any = {
   card32: "card32a",
   Tp1Day: "Tp1Day",
   dt20b: "dt20b",
-poker: "poker",
+  poker: "poker",
   onedaypoker20: "onedaypoker20",
   dragontiger1Day: "dragontiger1Day",
   dtl20: "dtl20",
