@@ -74,6 +74,7 @@ export const eventJson :any = {
 export const newCasino = [
   "teen3",
   "teen20b",
+  "teen20",
   "lucky7eu",
   "lucky7",
   "teen",
