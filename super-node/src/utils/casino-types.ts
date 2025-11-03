@@ -3,6 +3,7 @@ export const types: any = {
   lucky7eu: "lucky7eu",
   lucky7B: "lucky7B",
   teen3: "teen3",
+  teen8: "teen8",
   teen20b: "teen20b",
   teen20: "teen20",
   queen: "Queen",
@@ -75,6 +76,7 @@ export const eventJson :any = {
 export const newCasino = [
   "teen3",
   "teen20b",
+  "teen8",
   "teen20",
   "lucky7eu",
   "lucky7",
