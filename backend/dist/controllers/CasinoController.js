@@ -1106,6 +1106,7 @@ class CasinoController extends ApiController_1.ApiController {
                 case 'poker6':
                 case 'lucky7':
                     let caldata = this.canculatePnltwo({ ItemBetList, selectionId, sid50, resultsids, data });
+                    console.log("caldata", caldata);
                     profit_type = caldata.profit_type;
                     profitLossAmt = caldata.profitLossAmt;
                     break;

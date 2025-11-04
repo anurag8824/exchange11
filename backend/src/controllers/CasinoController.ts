@@ -1184,6 +1184,7 @@ export class CasinoController extends ApiController {
 
 
         let caldata = this.canculatePnltwo({ ItemBetList, selectionId, sid50, resultsids, data })
+        console.log("caldata", caldata)
         profit_type = caldata.profit_type
         profitLossAmt = caldata.profitLossAmt
         break;
