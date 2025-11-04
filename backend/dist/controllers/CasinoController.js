@@ -1098,7 +1098,7 @@ class CasinoController extends ApiController_1.ApiController {
             let profit_type = 'loss', profitLossAmt = 0;
             let fancy = false;
             switch (ItemBetList.gtype) {
-                case 'luck7eu':
+                case 'lucky7eu':
                 case 'teen':
                 case 'teen8':
                 case 'dt202':
@@ -1140,8 +1140,8 @@ class CasinoController extends ApiController_1.ApiController {
                         }
                     }
                     break;
-                case 'lucky7':
-                case 'lucky7B':
+                // case 'lucky7':
+                // case 'lucky7B':
                 case 'ddb':
                 case 'aaa':
                 case 'AAA':

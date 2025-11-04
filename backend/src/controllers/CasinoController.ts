@@ -15,7 +15,7 @@ import { CasCasino } from '../models/CasCasino'
 setInterval(() => {
   try {
     new CasinoController().setResultByTimePeriod()
-  } catch (e) {}
+  } catch (e) { }
 }, 3000)
 
 export class CasinoController extends ApiController {
@@ -51,14 +51,14 @@ export class CasinoController extends ApiController {
         const regexPattern = /(Aviator|Crash)/i;
         condition = { game_status: "active", game_slot_status: false, game_name: { $regex: regexPattern, $not: /Mobile/i } }
       }
-      
+
       providerCondition = condition
-    
-
-      
 
 
-      
+
+
+
+
       const providers = await CasCasino.aggregate([{
         $match: providerCondition
       }, {
@@ -72,13 +72,13 @@ export class CasinoController extends ApiController {
         }
       }])
 
-      
+
       const firstProvider = providers?.[0]
       console.log(firstProvider)
-      
+
       if (provider != "undefined" && provider != "null") {
         condition = { ...condition, game_provider: provider }
-      }else{
+      } else {
         condition = {
           ...condition,
           game_provider: firstProvider._id
@@ -113,7 +113,7 @@ export class CasinoController extends ApiController {
           game_name: 1
         }
       }]);
-      const providerdata = { "message": "ok", "result": games, "providers": providers, "status": "success", "category":category };
+      const providerdata = { "message": "ok", "result": games, "providers": providers, "status": "success", "category": category };
       return res.status(200).json(providerdata)
 
     } catch (e) {
@@ -121,7 +121,7 @@ export class CasinoController extends ApiController {
       return res.status(200).json({ "message": "failed", "result": [] })
     }
   }
- 
+
 
   getCasinoData = async (req: Request, res: Response) => {
     try {
@@ -365,7 +365,7 @@ export class CasinoController extends ApiController {
       // console.log(getPendingResults,"hahahahahahahaha")
 
       this.setPendingResult(getPendingResults)
-    } catch (e: unknown) {}
+    } catch (e: unknown) { }
   }
 
   // setPendingResult = (getPendingResults: any, redisData = false) => {
@@ -1008,7 +1008,7 @@ export class CasinoController extends ApiController {
         }
 
         const settle_single = allbets.map(async (ItemBetList: any, indexBetList: number) => {
-          console.log("hello Infayou",ItemBetList)
+          console.log("hello Infayou", ItemBetList)
           let { profitLoss: profitLossAmt } = this.canculatePnl({
             ItemBetList,
             selectionId,
@@ -1130,7 +1130,7 @@ export class CasinoController extends ApiController {
           : ItemBetList.isBack === false && !ratio.win
             ? 'profit'
             : 'loss';
-            let profitLossAmt = 0;
+      let profitLossAmt = 0;
       if (profit_type == 'profit') {
         if (ItemBetList.isBack === true) {
           profitLossAmt =
@@ -1151,18 +1151,18 @@ export class CasinoController extends ApiController {
 
       }
 
-            profitLossAmt = ratio.percent != 0 ? profitLossAmt * (ratio.percent / 100) : profitLossAmt
-            return {
-                profit_type,
-              profitLossAmt,
-            
+      profitLossAmt = ratio.percent != 0 ? profitLossAmt * (ratio.percent / 100) : profitLossAmt
+      return {
+        profit_type,
+        profitLossAmt,
 
-            }
-            } catch (error) {
-         return { profit_type: "loss", profitLossAmt: 0 }
+
+      }
+    } catch (error) {
+      return { profit_type: "loss", profitLossAmt: 0 }
     }
 
-    
+
   }
 
 
@@ -1173,14 +1173,14 @@ export class CasinoController extends ApiController {
       profitLossAmt = 0
     let fancy = false
     switch (ItemBetList.gtype) {
-      case 'luck7eu':
+      case 'lucky7eu':
       case 'teen':
       case 'teen8':
       case 'dt202':
       case 'poker':
       case 'poker6':
       case 'lucky7':
-        
+
 
 
         let caldata = this.canculatePnltwo({ ItemBetList, selectionId, sid50, resultsids, data })
@@ -1215,8 +1215,8 @@ export class CasinoController extends ApiController {
           }
         }
         break
-      case 'lucky7':
-      case 'lucky7B':
+      // case 'lucky7':
+      // case 'lucky7B':
       case 'ddb':
       case 'aaa':
       case 'AAA':
@@ -1659,9 +1659,9 @@ export class CasinoController extends ApiController {
         profitLossAmt = ItemBetList.isBack
           ? -ItemBetList.stack
           : -(
-              (parseFloat(ItemBetList.odds.toString()) - 1) *
-              parseFloat(ItemBetList.stack.toString())
-            )
+            (parseFloat(ItemBetList.odds.toString()) - 1) *
+            parseFloat(ItemBetList.stack.toString())
+          )
       }
     }
     return profitLossAmt
@@ -1693,7 +1693,7 @@ export class CasinoController extends ApiController {
   saveCasinoMatchData = async (req: Request, res: Response) => {
     try {
       const { data } = req.body
-    
+
       await CasinoGameResult.findOneAndUpdate(
         { mid: data.mid },
         { mid: data.mid, gameType: data.gameType, data: { ...data, status: 'processing' } },

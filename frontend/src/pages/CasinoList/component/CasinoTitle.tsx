@@ -289,6 +289,8 @@ const CasinoTitle = (props: any) => {
   };
 
   const poker = () => {
+    const cards = lastResult?.card?.split(",") || []; 
+    console.log(cards,"cards in poker")
     return (
       <div className='video-overlay'>
         <div className='videoCards'>
@@ -302,11 +304,11 @@ const CasinoTitle = (props: any) => {
               <div className='imgspace'>
                 <img
                   alt=''
-                  src={`/imgs/casino/cards/${lastResult.C1 == "1" ? "patti_back" : lastResult.C1}.png`}
+                  src={`/imgs/casino/cards/${cards[0] == "1" ? "patti_back" : cards[0]}.png`}
                 />
                 <img
                   alt=''
-                  src={`/imgs/casino/cards/${lastResult.C2 == "1" ? "patti_back" : lastResult.C2}.png`}
+                  src={`/imgs/casino/cards/${cards[1] == "1" ? "patti_back" : cards[1]}.png`}
                 />
               </div>
             </div>
@@ -319,11 +321,11 @@ const CasinoTitle = (props: any) => {
               <div className='imgspace'>
                 <img
                   alt=''
-                  src={`/imgs/casino/cards/${lastResult.C3 == "1" ? "patti_back" : lastResult.C3}.png`}
+                  src={`/imgs/casino/cards/${cards[2] == "1" ? "patti_back" : cards[2]}.png`}
                 />
                 <img
                   alt=''
-                  src={`/imgs/casino/cards/${lastResult.C4 == "1" ? "patti_back" : lastResult.C4}.png`}
+                  src={`/imgs/casino/cards/${cards[3] == "1" ? "patti_back" : cards[3]}.png`}
                 />
               </div>
             </div>
@@ -337,23 +339,23 @@ const CasinoTitle = (props: any) => {
             <div className='imgspace'>
               <img
                 alt=''
-                src={`/imgs/casino/cards/${lastResult.C5 == "1" ? "patti_back" : lastResult.C5}.png`}
+                src={`/imgs/casino/cards/${cards[4] == "1" ? "patti_back" : cards[4]}.png`}
               />
               <img
                 alt=''
-                src={`/imgs/casino/cards/${lastResult.C6 == "1" ? "patti_back" : lastResult.C6}.png`}
+                src={`/imgs/casino/cards/${cards[5] == "1" ? "patti_back" : cards[5]}.png`}
               />
               <img
                 alt=''
-                src={`/imgs/casino/cards/${lastResult.C7 == "1" ? "patti_back" : lastResult.C7}.png`}
+                src={`/imgs/casino/cards/${cards[6] == "1" ? "patti_back" : cards[6]}.png`}
               />
               <img
                 alt=''
-                src={`/imgs/casino/cards/${lastResult.C8 == "1" ? "patti_back" : lastResult.C8}.png`}
+                src={`/imgs/casino/cards/${cards[7] == "1" ? "patti_back" : cards[7]}.png`}
               />
               <img
                 alt=''
-                src={`/imgs/casino/cards/${lastResult.C9 == "1" ? "patti_back" : lastResult.C9}.png`}
+                src={`/imgs/casino/cards/${cards[8] == "1" ? "patti_back" : cards[8]}.png`}
               />
             </div>
           </div>
@@ -483,7 +485,7 @@ const CasinoTitle = (props: any) => {
   }
 
   const opentp = () => {
-    const finalString = lastResult?.desc?.split(',') || []
+    const finalString = lastResult?.card?.split(',') || []
     console.log(finalString,"final String from opentp ")
     const cardData = finalString && finalString[0] && finalString[0]
     // .split(',')
@@ -1145,10 +1147,10 @@ const CasinoTitle = (props: any) => {
             lastResult.slug == 'ddb') &&
             lucky7B()}
           {(lastResult.slug == 'dt20' ||
-            lastResult.slug == 'dt20b' ||
+            lastResult.slug == 'dt202' ||
             lastResult.slug == 'dragontiger1Day') &&
             dt20()}
-          {(lastResult.slug == 'onedaypoker' || lastResult.slug == 'onedaypoker20') &&
+          {(lastResult.slug == 'poker' || lastResult.slug == 'onedaypoker20') &&
             poker()}
 
           {lastResult.slug == 'teen' && lastResult?.match_id > 0 && onedayteen()}
@@ -1157,7 +1159,7 @@ const CasinoTitle = (props: any) => {
 
           {lastResult.slug == 'teen8' && opentp()}
           {lastResult.slug == 'teen20' && teen20()}
-          {lastResult.slug == 'poker6player' && poker6player()}
+          {lastResult.slug == 'poker6' && poker6player()}
           {lastResult.slug == 'testtp' && testtp()}
           {(lastResult.slug == 'Cards3J' ||
             lastResult.slug == 'worliinstant' ||
