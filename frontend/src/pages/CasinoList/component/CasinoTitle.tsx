@@ -253,21 +253,21 @@ const CasinoTitle = (props: any) => {
     )
   }
 
-  // const dt20 = () => {
-  //   return (
-  //     <div className='video-overlay'>
-  //      <div className='imgspace d-flex'>
-  //         <img
-  //           src={`/imgs/casino/cards/${lastResult.C1 == "1" ? "patti_back" : lastResult.C1}.png`}
-  //         />{' '}
+  const dt201day = () => {
+    return (
+      <div className='video-overlay'>
+       <div className='imgspace d-flex'>
+          <img
+            src={`/imgs/casino/cards/${lastResult.C1 == "1" ? "patti_back" : lastResult.C1}.png`}
+          />{' '}
           
-  //         <img
-  //           src={`/imgs/casino/cards/${lastResult?.C2 == "1" ? "patti_back" : lastResult?.C2}.png`}
-  //         />
-  //       </div>
-  //     </div>
-  //   )
-  // }
+          <img
+            src={`/imgs/casino/cards/${lastResult?.C2 == "1" ? "patti_back" : lastResult?.C2}.png`}
+          />
+        </div>
+      </div>
+    )
+  }
 
   const dt20 = () => {
     // card string ko array me split karo
@@ -356,6 +356,82 @@ const CasinoTitle = (props: any) => {
               <img
                 alt=''
                 src={`/imgs/casino/cards/${cards[8] == "1" ? "patti_back" : cards[8]}.png`}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const onepoker20 = () => {
+    const cards = lastResult?.card?.split(",") || []; 
+    console.log(cards,"cards in poker")
+    return (
+      <div className='video-overlay'>
+        <div className='videoCards'>
+          <div className='d-flex'>
+            <div className='mr-20'>
+              <p className='m-b-0 text-white'>
+                <b>
+                  <span className=''>Player A</span>
+                </b>
+              </p>
+              <div className='imgspace'>
+                <img
+                  alt=''
+                  src={`/imgs/casino/cards/${lastResult.C1 == "1" ? "patti_back" : lastResult.C1}.png`}
+                />
+                <img
+                  alt=''
+                  src={`/imgs/casino/cards/${lastResult.C2 == "1" ? "patti_back" : lastResult.C2}.png`}
+                />
+              </div>
+            </div>
+            <div className='mr-20'>
+              <p className='m-b-0 text-white'>
+                <b>
+                  <span className=''>Player B</span>
+                </b>
+              </p>
+              <div className='imgspace'>
+                <img
+                  alt=''
+                  src={`/imgs/casino/cards/${lastResult.C3 == "1" ? "patti_back" : lastResult.C3}.png`}
+                />
+                <img
+                  alt=''
+                  src={`/imgs/casino/cards/${lastResult.C4 == "1" ? "patti_back" : lastResult.C4}.png`}
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <p className='m-b-0 text-white'>
+              <b>
+                <span className=''>BOARD</span>
+              </b>
+            </p>
+            <div className='imgspace'>
+              <img
+                alt=''
+                src={`/imgs/casino/cards/${lastResult.C5 == "1" ? "patti_back" : lastResult.C5}.png`}
+              />
+              <img
+                alt=''
+                src={`/imgs/casino/cards/${lastResult.C6 == "1" ? "patti_back" : lastResult.C6}.png`}
+              />
+              <img
+                alt=''
+                src={`/imgs/casino/cards/${lastResult.C7 == "1" ? "patti_back" : lastResult.C7}.png`}
+              />
+              <img
+                alt=''
+                src={`/imgs/casino/cards/${lastResult.C8 == "1" ? "patti_back" : lastResult.C8}.png`}
+              />
+              <img
+                alt=''
+                src={`/imgs/casino/cards/${lastResult.C9 == "1" ? "patti_back" : lastResult.C9}.png`}
               />
             </div>
           </div>
@@ -1150,8 +1226,14 @@ const CasinoTitle = (props: any) => {
             lastResult.slug == 'dt202' ||
             lastResult.slug == 'dragontiger1Day') &&
             dt20()}
-          {(lastResult.slug == 'poker' || lastResult.slug == 'onedaypoker20') &&
+            {(
+            lastResult.slug == 'dragontiger1Day') &&
+            dt201day()}
+          {(lastResult.slug == 'poker') &&
             poker()}
+
+{(lastResult.slug == 'onedaypoker20') &&
+            onepoker20()}
 
           {lastResult.slug == 'teen' && lastResult?.match_id > 0 && onedayteen()}
           {((!isMobile && lastResult.slug == 'dtl20') || lastResult.slug == 'war') &&
