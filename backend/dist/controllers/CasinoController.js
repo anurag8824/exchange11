@@ -1044,12 +1044,71 @@ class CasinoController extends ApiController_1.ApiController {
                 yield CasinoGameResult_1.CasinoGameResult.updateMany({ mid: marketId, gameType: casinoType }, { $set: { 'data.status': 'done', 'data.result-over': 'done' } });
             }));
         };
+        this.canculatePnltwo = ({ ItemBetList, selectionId, sid50, resultsids, data }) => {
+            try {
+                const sids = JSON.parse(data.sids);
+                const ratio = sids.reduce((acc, item) => {
+                    if (item.winner == `SID${ItemBetList.selectionId}`) {
+                        acc.percent = item.ration;
+                        acc.win = true;
+                        acc.totalrun = (item === null || item === void 0 ? void 0 : item.totalrun) || 0;
+                    }
+                    return acc;
+                }, { percent: 0, win: false, totalrun: 0 });
+                let profit_type = ItemBetList.isBack === true && ratio.win
+                    ? 'profit'
+                    : ItemBetList.isBack === false && !ratio.win
+                        ? 'profit'
+                        : 'loss';
+                let profitLossAmt = 0;
+                if (profit_type == 'profit') {
+                    if (ItemBetList.isBack === true) {
+                        profitLossAmt =
+                            (parseFloat(ItemBetList.odds.toString()) - 1) *
+                                parseFloat(ItemBetList.stack.toString());
+                    }
+                    else if (ItemBetList.isBack === false) {
+                        profitLossAmt = parseFloat(ItemBetList.stack.toString());
+                    }
+                }
+                else if (profit_type == 'loss') {
+                    if (ItemBetList.isBack === true) {
+                        profitLossAmt = parseFloat(ItemBetList.stack.toString()) * -1;
+                    }
+                    else if (ItemBetList.isBack === false) {
+                        profitLossAmt =
+                            (parseFloat(ItemBetList.odds.toString()) - 1) *
+                                parseFloat(ItemBetList.stack.toString()) *
+                                -1;
+                    }
+                }
+                profitLossAmt = ratio.percent != 0 ? profitLossAmt * (ratio.percent / 100) : profitLossAmt;
+                return {
+                    profit_type,
+                    profitLossAmt,
+                };
+            }
+            catch (error) {
+                return { profit_type: "loss", profitLossAmt: 0 };
+            }
+        };
         this.canculatePnl = ({ ItemBetList, selectionId, sid50, resultsids, data }) => {
             console.log(ItemBetList, resultsids, data, "heelo eowwddnfflkanklvnlknklnjbnljnjdabnlanI");
             sid50 = sid50 ? sid50.split(',') : '';
             let profit_type = 'loss', profitLossAmt = 0;
             let fancy = false;
             switch (ItemBetList.gtype) {
+                case 'luck7eu':
+                case 'teen':
+                case 'teen8':
+                case 'dt202':
+                case 'poker':
+                case 'poker6':
+                case 'lucky7':
+                    let caldata = this.canculatePnltwo({ ItemBetList, selectionId, sid50, resultsids, data });
+                    profit_type = caldata.profit_type;
+                    profitLossAmt = caldata.profitLossAmt;
+                    break;
                 case 'queen':
                 case 'card32':
                 case 'card32a':

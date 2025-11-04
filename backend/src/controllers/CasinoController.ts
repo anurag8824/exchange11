@@ -1114,13 +1114,79 @@ export class CasinoController extends ApiController {
     })
   }
 
+  canculatePnltwo = ({ ItemBetList, selectionId, sid50, resultsids, data }: any) => {
+    try {
+      const sids = JSON.parse(data.sids)
+      const ratio = sids.reduce((acc: any, item: any) => {
+        if (item.winner == `SID${ItemBetList.selectionId}`) { acc.percent = item.ration; acc.win = true; acc.totalrun = item?.totalrun || 0 }
+        return acc
+      }, { percent: 0, win: false, totalrun: 0 })
+
+
+
+      let profit_type =
+        ItemBetList.isBack === true && ratio.win
+          ? 'profit'
+          : ItemBetList.isBack === false && !ratio.win
+            ? 'profit'
+            : 'loss';
+            let profitLossAmt = 0;
+      if (profit_type == 'profit') {
+        if (ItemBetList.isBack === true) {
+          profitLossAmt =
+            (parseFloat(ItemBetList.odds.toString()) - 1) *
+            parseFloat(ItemBetList.stack.toString())
+        } else if (ItemBetList.isBack === false) {
+          profitLossAmt = parseFloat(ItemBetList.stack.toString())
+        }
+      } else if (profit_type == 'loss') {
+        if (ItemBetList.isBack === true) {
+          profitLossAmt = parseFloat(ItemBetList.stack.toString()) * -1
+        } else if (ItemBetList.isBack === false) {
+          profitLossAmt =
+            (parseFloat(ItemBetList.odds.toString()) - 1) *
+            parseFloat(ItemBetList.stack.toString()) *
+            -1
+        }
+
+      }
+
+            profitLossAmt = ratio.percent != 0 ? profitLossAmt * (ratio.percent / 100) : profitLossAmt
+            return {
+                profit_type,
+              profitLossAmt,
+            
+
+            }
+            } catch (error) {
+         return { profit_type: "loss", profitLossAmt: 0 }
+    }
+
+    
+  }
+
+
   canculatePnl = ({ ItemBetList, selectionId, sid50, resultsids, data }: any) => {
-    console.log(ItemBetList,resultsids,data, "heelo eowwddnfflkanklvnlknklnjbnljnjdabnlanI")
+    console.log(ItemBetList, resultsids, data, "heelo eowwddnfflkanklvnlknklnjbnljnjdabnlanI")
     sid50 = sid50 ? sid50.split(',') : ''
     let profit_type = 'loss',
       profitLossAmt = 0
     let fancy = false
     switch (ItemBetList.gtype) {
+      case 'luck7eu':
+      case 'teen':
+      case 'teen8':
+      case 'dt202':
+      case 'poker':
+      case 'poker6':
+      case 'lucky7':
+        
+
+
+        let caldata = this.canculatePnltwo({ ItemBetList, selectionId, sid50, resultsids, data })
+        profit_type = caldata.profit_type
+        profitLossAmt = caldata.profitLossAmt
+        break;
       case 'queen':
       case 'card32':
       case 'card32a':
@@ -1128,8 +1194,8 @@ export class CasinoController extends ApiController {
           ItemBetList.isBack === true && ItemBetList.selectionId == selectionId
             ? 'profit'
             : ItemBetList.isBack === false && ItemBetList.selectionId != selectionId
-            ? 'profit'
-            : 'loss'
+              ? 'profit'
+              : 'loss'
         if (profit_type == 'profit') {
           if (ItemBetList.isBack === true) {
             profitLossAmt =
@@ -1165,15 +1231,15 @@ export class CasinoController extends ApiController {
       case 'Andarbahar2':
       case 'dt202':
         if (resultsids) {
-          console.log("hello wrold , hello world , hello world , hello world ,, hello world ",ItemBetList.stack)
+          console.log("hello wrold , hello world , hello world , hello world ,, hello world ", ItemBetList.stack)
           let totalPoints = 0
           profit_type =
             ItemBetList.isBack === true && resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1
               ? 'profit'
               : ItemBetList.isBack === false &&
                 !(resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1)
-              ? 'profit'
-              : 'loss'
+                ? 'profit'
+                : 'loss'
 
           if (ItemBetList.gtype == 'cmeter2020') {
             totalPoints = parseInt(data.C1) - parseInt(data.C2)
@@ -1197,10 +1263,10 @@ export class CasinoController extends ApiController {
               profitLossAmt =
                 (parseFloat(ItemBetList.odds.toString()) - 1) *
                 parseFloat(ItemBetList.stack.toString())
-                console.log(profitLossAmt,"profit loss ammount dlskjglal;dnkdfghjklfdsdtfyuiuoutdrsghiojdfgjkhhhg")
+              console.log(profitLossAmt, "profit loss ammount dlskjglal;dnkdfghjklfdsdtfyuiuoutdrsghiojdfgjkhhhg")
             } else {
               profitLossAmt = parseFloat(ItemBetList.stack.toString())
-              console.log(profitLossAmt,"profit loss ammount dlskjglal;dnkdfghjklfdsdtfyuiuoutdrsghiojdfgjkhhhg")
+              console.log(profitLossAmt, "profit loss ammount dlskjglal;dnkdfghjklfdsdtfyuiuoutdrsghiojdfgjkhhhg")
 
             }
           } else if (profit_type == 'loss') {
@@ -1223,7 +1289,7 @@ export class CasinoController extends ApiController {
           if (sid50 && (ItemBetList.gtype === 'dt20' || ItemBetList.gtype === 'dt20b')) {
             profitLossAmt = sid50.includes(`SID${ItemBetList.selectionId}`)
               ? (parseFloat(ItemBetList.odds.toString()) - 1) *
-                parseFloat(ItemBetList.stack.toString())
+              parseFloat(ItemBetList.stack.toString())
               : profitLossAmt
           }
 
@@ -1265,7 +1331,7 @@ export class CasinoController extends ApiController {
             else if (ItemBetList.odds > 0 || ItemBetList.odds < 1)
               profitLossAmt =
                 (parseFloat('1') + parseFloat(ItemBetList.odds.toString())) *
-                  parseFloat(ItemBetList.stack.toString()) -
+                parseFloat(ItemBetList.stack.toString()) -
                 parseFloat(ItemBetList.stack.toString())
             else
               profitLossAmt =
@@ -1303,19 +1369,19 @@ export class CasinoController extends ApiController {
           if (resultsids && resultsids.length > 0) {
             profit_type =
               ItemBetList.isBack === true &&
-              resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1
+                resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1
                 ? 'profit'
                 : ItemBetList.isBack === false &&
                   !(resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1)
-                ? 'profit'
-                : 'loss'
+                  ? 'profit'
+                  : 'loss'
           } else {
             profit_type =
               ItemBetList.isBack === true && ItemBetList.selectionId == selectionId
                 ? 'profit'
                 : ItemBetList.isBack === false && ItemBetList.selectionId != selectionId
-                ? 'profit'
-                : 'loss'
+                  ? 'profit'
+                  : 'loss'
           }
 
           if (profit_type == 'profit') {
@@ -1400,8 +1466,8 @@ export class CasinoController extends ApiController {
               ? 'profit'
               : ItemBetList.isBack === false &&
                 !(resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1)
-              ? 'profit'
-              : 'loss'
+                ? 'profit'
+                : 'loss'
         }
 
         if (profit_type == 'profit') {
@@ -1412,7 +1478,7 @@ export class CasinoController extends ApiController {
           } else {
             profitLossAmt = ItemBetList.isBack
               ? (parseFloat(ItemBetList.odds.toString()) - 1) *
-                parseFloat(ItemBetList.stack.toString())
+              parseFloat(ItemBetList.stack.toString())
               : ItemBetList.stack
           }
         } else {
@@ -1424,9 +1490,9 @@ export class CasinoController extends ApiController {
             profitLossAmt = ItemBetList.isBack
               ? -ItemBetList.stack
               : -(
-                  (parseFloat(ItemBetList.odds.toString()) - 1) *
-                  parseFloat(ItemBetList.stack.toString())
-                )
+                (parseFloat(ItemBetList.odds.toString()) - 1) *
+                parseFloat(ItemBetList.stack.toString())
+              )
           }
         }
         break
@@ -1449,8 +1515,8 @@ export class CasinoController extends ApiController {
               ? 'profit'
               : ItemBetList.isBack === false &&
                 parseInt(data.totalRuns) < parseInt(ItemBetList.odds)
-              ? 'profit'
-              : 'loss'
+                ? 'profit'
+                : 'loss'
 
           profitLossAmt = this.profitLossCalculation({
             ItemBetList,
@@ -1464,8 +1530,8 @@ export class CasinoController extends ApiController {
               ? 'profit'
               : ItemBetList.isBack === false &&
                 !(resultsids.indexOf(`SID${ItemBetList.selectionId}`) > -1)
-              ? 'profit'
-              : 'loss'
+                ? 'profit'
+                : 'loss'
           profitLossAmt = this.profitLossCalculation({
             ItemBetList,
             profit_type,
@@ -1477,8 +1543,8 @@ export class CasinoController extends ApiController {
             ItemBetList.isBack === true && ItemBetList.selectionId == selectionId
               ? 'profit'
               : ItemBetList.isBack === false && ItemBetList.selectionId != selectionId
-              ? 'profit'
-              : 'loss'
+                ? 'profit'
+                : 'loss'
           profitLossAmt = this.profitLossCalculation({
             ItemBetList,
             profit_type,
@@ -1525,15 +1591,15 @@ export class CasinoController extends ApiController {
         if (profit_type == 'profit') {
           profitLossAmt = ItemBetList.isBack
             ? (parseFloat(ItemBetList.odds.toString()) - 1) *
-              parseFloat(ItemBetList.stack.toString())
+            parseFloat(ItemBetList.stack.toString())
             : ItemBetList.stack
         } else {
           profitLossAmt = ItemBetList.isBack
             ? -ItemBetList.stack
             : -(
-                (parseFloat(ItemBetList.odds.toString()) - 1) *
-                parseFloat(ItemBetList.stack.toString())
-              )
+              (parseFloat(ItemBetList.odds.toString()) - 1) *
+              parseFloat(ItemBetList.stack.toString())
+            )
         }
         break
       case 'cricket2020':
@@ -1547,15 +1613,15 @@ export class CasinoController extends ApiController {
         if (profit_type == 'profit') {
           profitLossAmt = ItemBetList.isBack
             ? (parseFloat(ItemBetList.odds.toString()) - 1) *
-              parseFloat(ItemBetList.stack.toString())
+            parseFloat(ItemBetList.stack.toString())
             : ItemBetList.stack
         } else {
           profitLossAmt = ItemBetList.isBack
             ? -ItemBetList.stack
             : -(
-                (parseFloat(ItemBetList.odds.toString()) - 1) *
-                parseFloat(ItemBetList.stack.toString())
-              )
+              (parseFloat(ItemBetList.odds.toString()) - 1) *
+              parseFloat(ItemBetList.stack.toString())
+            )
         }
         break
       case 'worlimatka':
@@ -1572,6 +1638,7 @@ export class CasinoController extends ApiController {
       profit_type,
     }
   }
+
   profitLossCalculation = ({ ItemBetList, profit_type, profitLossAmt, fancy }: any) => {
     if (profit_type == 'profit') {
       if (fancy) {
