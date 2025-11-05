@@ -29,11 +29,12 @@ import casinoSlugs from '../../../utils/casino-slugs.json'
 import UserService from "../../../services/user.service";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-// const isMobile = true
 
 
 
 const Header = () => {
+// const isMobile = true
+
   const ref = useRef<any>(null)
   const userState = useAppSelector<{ user: User }>(selectUserData)
   const balance = useAppSelector(selectBalance)
@@ -417,7 +418,7 @@ style={{position: "fixed",
               </li>
             </ul>
           </div>
-          {isMobile ? <Marqueemessge message={userMessage} /> : ""}
+          <Marqueemessge message={"jknsdfg"} />
           {!isMobile ? <NavMenu /> : <NavMobileMenu />}
         </div>
       </div>

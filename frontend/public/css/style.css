@@ -2478,20 +2478,20 @@ footer {
 
 .lay,
 .lay-color {
-  background-color: #f9c9d4 !important;
+  background-color: #FAA9BA !important;
 }
 
 .back,
 .back-color {
-  background-color: #a7d8fd;
+  background-color: #72BBEF;
 }
 
 .layx {
-  background-color: #f9c9d4 !important;
+  background-color: #FAA9BA !important;
 }
 
 .backx {
-  background-color: #a7d8fd !important;
+  background-color: #72BBEF !important;
 }
 
 .game-heading .card-header-title {
@@ -9080,7 +9080,7 @@ footer p {
 .casino-list-item .casino-list-name {
   background-image: linear-gradient(var(--theme1-bg), var(--theme2-bg));
   color: var(--primary-bg);
-  padding: 5px;
+  padding: 2px;
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -9088,7 +9088,7 @@ footer p {
   text-transform: uppercase;
   font-weight: bold;
   border-radius: 4px;
-  font-size: 11px;
+  font-size: 8px;
 }
 
 .casino-list-item.rect .casino-list-item-banner {

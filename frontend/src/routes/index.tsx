@@ -8,6 +8,8 @@ import Withdraw from '../pages/withdraw/withdraw'
 import DepositStatement from '../pages/depositstatement/depositstatement'
 import WithdrawStatement from '../pages/withdrawstatement/withdrawstatement'
 import Login2 from '../pages/login/login2'
+import TOS from '../pages/withdrawstatement/TOS'
+import RG from '../pages/withdrawstatement/RG'
 
 const AccountStatement = React.lazy(() => import('../pages/AccountStatement/AccountStatement'))
 const BetHistory = React.lazy(() => import('../pages/BetHistory/BetHistory'))
@@ -88,6 +90,11 @@ const Routers = () => {
             { path: 'settings/security-auth', element: <SecurityAuth /> },
             { path: '/depositstatement', element: <DepositStatement /> },
             { path: '/withdrawstatement', element: <WithdrawStatement /> },
+            { path: '/terms-and-conditions', element: <TOS /> },
+            { path: '/responsible-gaming', element: <RG /> },
+
+
+           
           ],
         },
         ...AdminRoutes(),
