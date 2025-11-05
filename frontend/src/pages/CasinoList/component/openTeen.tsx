@@ -52,6 +52,7 @@ const OpenTeen = (props: any) => {
   );
 
   const onBet = (isBack = false, item: any) => {
+    console.log(item, "item in button item");
     const ipAddress = authService.getIpAddress();
     const oddVal = parseFloat(isBack ? item.rate : item.rate);
     const odds = oddVal.toString();
@@ -67,7 +68,7 @@ const OpenTeen = (props: any) => {
             marketId: item.mid,
             marketName: item.MarketName,
             matchId: liveMatchData?.event_data?.match_id || 0,
-            selectionName: item.nation,
+            selectionName: item.nation || item.runnerName || item.RunnerName, 
             selectionId: item.sid,
             pnl: 0,
             stack: 0,

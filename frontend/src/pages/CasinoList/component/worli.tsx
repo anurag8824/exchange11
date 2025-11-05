@@ -42,6 +42,7 @@ const Worli = (props: any) => {
     return type ? `${firstString.join('')} ${activeTab}` : `${firstString.join('')}`
   }
   const onBet = (isBack = false, item: any) => {
+    console.log(item, "item in button item")
     const ipAddress = authService.getIpAddress()
     const oddVal = item?.rate || item?.b1;
     const odds = oddVal

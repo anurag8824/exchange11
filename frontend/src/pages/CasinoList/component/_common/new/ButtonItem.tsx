@@ -12,6 +12,7 @@ const ButtonItem = (props: any) => {
     const userState = useAppSelector(selectUserData)
 
     const onBet = (isBack = false, item: any) => {
+        console.log(item,"item in button item")
         const ipAddress = authService.getIpAddress()
         if (userState.user.role === RoleType.user) {
             const oddsVal = parseFloat(isBack ? item.b1 : item.l1);

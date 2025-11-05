@@ -29,6 +29,7 @@ const Instantworli = (props: any) => {
     if (betValues.isOpen == false) setselectionId("")
   }, [betValues.betData])
   const onBet = (isBack = false, item: any) => {
+    console.log(item, 'item in button item')
     const ipAddress = authService.getIpAddress()
     const oddVal = item?.rate || item?.b1;
     const odds = oddVal

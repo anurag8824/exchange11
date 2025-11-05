@@ -12,6 +12,7 @@ const LayButton = (props: any) => {
     const dispatch = useAppDispatch()
     const userState = useAppSelector(selectUserData)
     const onBet = (isBack = false, item: any) => {
+        console.log(item,"item in button item")
         const ipAddress = authService.getIpAddress()
         if (userState.user.role === RoleType.user) {
             const oddsVal = parseFloat(isBack ? item.b1 : item.l1);
@@ -27,7 +28,7 @@ const LayButton = (props: any) => {
                         marketId: item?.mid || item?.marketId,
                         marketName: item.MarketName,
                         matchId: liveMatchData?.event_data?.match_id || 0,
-                        selectionName: item.runnerName,
+                        selectionName: item.runnerName || item.RunnerName,
                         selectionId: item?.sid ? parseInt(item?.sid) : item?.sectionId,
                         pnl: 0,
                         stack: 0,
