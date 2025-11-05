@@ -258,7 +258,26 @@ style={{position: "fixed",
                   </li>
                 </>
               ) : (
-                ''
+                <div>
+                <AutocompleteComponent<IMatch>
+                      className={`search-input-show ${showAuto ? 'show' : ''}`}
+                      label={'Search'}
+                      optionKey={'name'}
+                      api={suggestion}
+                      onClick={onMatchClick}
+                    />
+
+                    <a
+                      href='#'
+                      onClick={(e: MouseEvent<HTMLAnchorElement>) => {
+                        e.preventDefault()
+                        setShowAuto(!showAuto)
+                      }}
+                      className={`search-input`}
+                    >
+                      <i className='fas fa-search-plus' />
+                    </a>
+                   </div>
               )}
               <li className='ballance float-left'>
                 {!isMobile && !selectHideBal.balance ? (
