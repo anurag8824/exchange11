@@ -510,6 +510,11 @@ const CasinoWrapper = (props: any) => {
     fivewicket:"cricketv3",
     cricket2020:"cmatch20",
     race2020:"race20",
+    warcasino:"war",
+    Andarbahar:"ab20",
+    Andarbahar2:"abj",
+    worliinstant:"worli2",
+    //other codes remain same
   }
 
   // Assume `gameCode` comes from API response
