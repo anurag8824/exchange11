@@ -1,5 +1,5 @@
 import moment from 'moment'
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import { useWebsocketUser } from '../../../context/webSocketUser'
 import IBet from '../../../models/IBet'
 import { RoleType } from '../../../models/User'
@@ -12,6 +12,8 @@ import { betDateFormat } from '../../../utils/helper'
 import { isMobile } from 'react-device-detect'
 import { selectCasinoCurrentMatch } from '../../../redux/actions/casino/casinoSlice'
 import { useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { AxiosResponse } from 'axios'
 
 const MyBetComponent = () => {
   const [getMyAllBet, setMyAllBet] = React.useState<IBet[]>([])
@@ -73,6 +75,46 @@ const MyBetComponent = () => {
     }
   }, [getMyAllBet])
 
+  const onTrash = (e: MouseEvent<HTMLAnchorElement>, bet: IBet) => {
+    e.preventDefault();
+
+    // Check if bet._id exists before proceeding
+    if (!bet._id) {
+      toast.error("Invalid bet data. Unable to delete.");
+      return;
+    }
+
+    // Replace confirm with a custom modal for better UX (Optional)
+    const userConfirmed = window.confirm('Are you sure you want to delete?');
+
+    if (userConfirmed) {
+      betService.deleteCurrentBet(bet._id).then((res: AxiosResponse) => {
+        const { success, message } = res.data.data;
+
+        if (success) {
+          // Notify backend via socket
+          socketUser.emit('betDelete', { betId: bet._id, userId: bet.userId });
+
+          // Show success toast notification
+          toast.success(message);
+
+          // Update state safely
+          // setMyAllBet((prevState: any) => ({
+          //   ...prevState,
+          //   docs: prevState?.docs?.filter(({ _id }: IBet) => _id !== bet._id),
+          // }));
+          setRefreshStatus(betRefresh ? false : true);
+
+        } else {
+          toast.error('Failed to delete bet.');
+        }
+      }).catch((err) => {
+        console.error('Error deleting bet:', err);
+        toast.error('An error occurred while deleting the bet.');
+      });
+    }
+  };
+
   return (
     <div className='table-responsive-new' style={{height:"200px", overflowY:"scroll"}}>
       <table className='table coupon-table scorall mybet'>
@@ -86,6 +128,8 @@ const MyBetComponent = () => {
             {!isMobile && <th> Place Date</th>}
             {!isMobile && <th> Match Date</th>}
             {userState.user.role !== RoleType.user && <th> IP</th>}
+            {userState.user.role !== RoleType.user && <th> Delete</th>}
+
           </tr>
         </thead>
         <tbody className='scorall'>
@@ -107,6 +151,10 @@ const MyBetComponent = () => {
                 <td className='no-wrap'> {moment(bet.createdAt).format(betDateFormat)} </td>
               )}
               {userState.user.role !== RoleType.user && <td className='no-wrap'>{bet.userIp} </td>}
+              {userState.user.role !== RoleType.user && <td className='no-wrap'>  <a onClick={(e) => onTrash && onTrash(e, bet)} href='#'>
+                <i className='fa fa-trash' />
+              </a> </td>}
+
             </tr>
           ))}
         </tbody>

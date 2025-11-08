@@ -1286,6 +1286,49 @@ fancybetListSelection = async (req: Request, res: Response): Promise<Response> =
     }
   }
 
+
+
+alluserbetList22 = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    // Only get deleted bets from all users
+    const filter = { status: 'deleted' };
+
+    console.log("Filter:", filter);
+
+    const deletedBets = await Bet.find(filter).sort({ createdAt: -1 });
+    return this.success(res, deletedBets);
+  } catch (e: any) {
+    return this.fail(res, e);
+  }
+};
+
+
+undodeleteCurrentBet = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    let status: string = 'pending'
+    const userbet: any = await Bet.findOneAndUpdate(
+      { _id: ObjectId(req.params.id) },
+      { $set: { status } },
+    )
+    console.log(userbet, "userbet")
+    const betAmount = parseFloat(userbet?.loss.toString())
+    console.log(betAmount, "Bet ammount HHHHH")
+    const userId = userbet.userId
+
+
+    const json: any = {}
+    let exposer = await this.getexposerfunction({ _id: userbet.userId }, true, json)
+    let exposer2 = await this.getcasinoexposerfunction({ _id: userbet.userId }, true, json)
+
+    // balance event here
+    return this.success(res, { success: true }, 'Bet Reverse successfully')
+  } catch (e: any) {
+    console.log(e)
+    return this.fail(res, e)
+  }
+}
+
+
   getExposerEvent = async (req: Request, res: Response): Promise<Response> => {
     try {
       const user: any = req.user
@@ -1433,3 +1476,5 @@ fancybetListSelection = async (req: Request, res: Response): Promise<Response> =
     }
   }
 }
+
+

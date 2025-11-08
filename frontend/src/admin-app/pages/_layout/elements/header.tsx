@@ -180,6 +180,14 @@ const Header = () => {
                           </CustomLink>
                         </li>
                       )}
+
+{userState?.user?.role === RoleType.admin && (
+                        <li>
+                          <CustomLink to='/deleted-bets' className='dropdown-item'>
+                            <b>Deleted History (Undo)</b>
+                          </CustomLink>
+                        </li>
+                      )}
                       {/* <li>
                         <a href='greport.html' className='dropdown-item'>
                           <b>General Report</b>

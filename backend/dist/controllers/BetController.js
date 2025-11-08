@@ -1201,6 +1201,37 @@ class BetController extends ApiController_1.ApiController {
                 return this.fail(res, e);
             }
         });
+        this.alluserbetList22 = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                // Only get deleted bets from all users
+                const filter = { status: 'deleted' };
+                console.log("Filter:", filter);
+                const deletedBets = yield Bet_1.Bet.find(filter).sort({ createdAt: -1 });
+                return this.success(res, deletedBets);
+            }
+            catch (e) {
+                return this.fail(res, e);
+            }
+        });
+        this.undodeleteCurrentBet = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                let status = 'pending';
+                const userbet = yield Bet_1.Bet.findOneAndUpdate({ _id: ObjectId(req.params.id) }, { $set: { status } });
+                console.log(userbet, "userbet");
+                const betAmount = parseFloat(userbet === null || userbet === void 0 ? void 0 : userbet.loss.toString());
+                console.log(betAmount, "Bet ammount HHHHH");
+                const userId = userbet.userId;
+                const json = {};
+                let exposer = yield this.getexposerfunction({ _id: userbet.userId }, true, json);
+                let exposer2 = yield this.getcasinoexposerfunction({ _id: userbet.userId }, true, json);
+                // balance event here
+                return this.success(res, { success: true }, 'Bet Reverse successfully');
+            }
+            catch (e) {
+                console.log(e);
+                return this.fail(res, e);
+            }
+        });
         this.getExposerEvent = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = req.user;

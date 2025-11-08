@@ -4,6 +4,7 @@ import User, { RoleType } from '../models/User'
 import { selectUserData } from '../redux/actions/login/loginSlice'
 import Login2 from '../pages/login/login2'
 import UpdateWhatsapp from './pages/settings/UpdateWhatsapp'
+import DeletedBetsUndo from './pages/UnsetteleBetHistory/DeletedBetsUndo'
 // import ClientLedger from './pages/settings/ClientLedger'
 const ActiveMarkets = React.lazy(() => import('../admin-app/pages/active-matches/active-markets'))
 const ActiveMatches = React.lazy(() => import('../admin-app/pages/active-matches/active-matches'))
@@ -97,6 +98,7 @@ const AdminRoutes = () => {
             { path: 'withdrawstatement', element: <WithdrawStatementAdmin /> },
             { path: 'payment-method', element: <Paymethod /> },
             { path: 'update-whatsapp', element: <UpdateWhatsapp /> },
+            { path: "deleted-bets", element: <DeletedBetsUndo /> },
 
             // { path: "client-ledger", element: <ClientLedger/>}
 

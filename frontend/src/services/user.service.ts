@@ -28,6 +28,12 @@ class UserService {
     return api.get(`/get-parent-user-detail/?username=${username}`)
   }
 
+  getUsercompletedbets22() {
+    return api.get(`/alluserbetList22`)
+  }
+
+  
+
   addUser(data: any) {
     return api.post('/register', data)
   }

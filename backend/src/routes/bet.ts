@@ -29,6 +29,9 @@ export class BetRoute {
     )
 
     this.router.post('/alluserbetList', Passport.authenticateJWT, this.betController.alluserbetList)
+
+    this.router.get('/alluserbetList22', Passport.authenticateJWT, this.betController.alluserbetList22)
+
     this.router.get(
       '/get-exposer-event',
       Passport.authenticateJWT,
@@ -39,6 +42,12 @@ export class BetRoute {
       '/delete-current-bet/:id',
       Passport.authenticateJWT,
       this.betController.deleteCurrentBet,
+    )
+
+    this.router.post(
+      '/undo-delete-current-bet/:id',
+      Passport.authenticateJWT,
+      this.betController.undodeleteCurrentBet,
     )
 
     this.router.post('/delete-bets', Passport.authenticateJWT, this.betController.deleteBets)

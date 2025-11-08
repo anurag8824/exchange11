@@ -30,6 +30,10 @@ class BetService {
     return api.post(`delete-bets`, data)
   }
 
+  undodeleteCurrentBet(id: string) {
+    return api.post(`undo-delete-current-bet/${id}`);
+  }
+
   usersLockClientList(data: { ids: Array<string>; lock: boolean; type: string }) {
     return api.post(`users-lock`, data)
   }
