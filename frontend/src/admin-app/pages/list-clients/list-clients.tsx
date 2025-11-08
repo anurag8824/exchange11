@@ -418,7 +418,7 @@ const ListClients = () => {
     <>
       <div className='container-fluid'>
         <div className='row'>
-          <div className='master-balance d-none'>
+          <div className='master-balance'>
             <div
               className='text-center '
               onClick={() => {
