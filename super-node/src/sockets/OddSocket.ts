@@ -23,7 +23,7 @@ class OddSocket {
       const markets: any = await redisReplica.json.get("matchesMarket", {
         path: matchId,
       });
-      console.log(markets,"ghjklghjklvghjkl")
+      // console.log(markets,"ghjklghjklvghjkl")
       if (markets && markets.length > 0) {
         markets.map(async (market: any) => {
           const redisMarket: any = await redisReplica.get(
