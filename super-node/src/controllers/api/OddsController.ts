@@ -235,7 +235,7 @@ class OddsController {
     try {
       const { marketId } = req.query;
       if (!marketId) throw Error("marketId is required field");
-      console.log(marketId,"marketId is here")
+      // console.log(marketId,"marketId is here")
 
       let response: any = await redisReplica.get(`odds-market-${marketId}`);
 
@@ -273,7 +273,7 @@ class OddsController {
       if (!SelectionId) throw Error("SelectionId is required field");
 
       let response: any = await redisReplica.get(`fancy-${MatchID}`);
-      console.log(response,"ghjkhjklbjk")
+      // console.log(response,"ghjkhjklbjk")
 
       response = response ? { data: JSON.parse(response) } : { data: [] };
       const market = response.data
