@@ -142,25 +142,35 @@ export default class CasinoController extends ApiController {
       data = data ? { data: JSON.parse(data) } : { data: [] };
 
       let markets: any = [];
-      let singleMarket = {};
+      let singleMarket: any = {};
       if (data?.data?.t2) markets = [...markets, ...data?.data?.t2];
       if (data?.data?.t3) markets = [...markets, ...data?.data?.t3];
       if (data?.data?.t4) markets = [...markets, ...data?.data?.t4];
       if (data?.data?.bf) markets = [...data?.data?.bf];
+      if (newCasino.indexOf(type) > -1) {
+        markets = data?.data?.event_data?.market?.flatMap((market: any) => market.Runners);
+        //// markets =  [...data?.data?.event_data?.bf]
+      }
 
       if (markets.length > 0 && selectionId) {
         let sidStr = "sid";
+        let sidStr1 = "sid";
+        let sidStr2 = "sid";
         switch (type.toLowerCase()) {
           case "testtp":
             sidStr = "tsection";
+            sidStr1 = "lsection";
+            sidStr2 = "dsectionid";
             break;
           case "tp1day":
             sidStr = "sectionId";
+            sidStr1 = "sectionId";
+            sidStr2 = "sectionId";
             break;
         }
 
         const matchedRecord = markets.filter(
-          (market: any) => market[sidStr] == selectionId
+          (market: any) => market[sidStr] == selectionId || market[sidStr1] == selectionId || market[sidStr2] == selectionId
         );
 
         if (matchedRecord.length > 0) {
@@ -183,10 +193,19 @@ export default class CasinoController extends ApiController {
             : 0;
         singleMarket = { ...singleMarket, min, max };
       }
+      if (newCasino.indexOf(type) > -1) {
+        singleMarket = {
+          ...singleMarket,
+          b1: singleMarket.b,
+          l1: singleMarket.l
+        };
+      }
+      console.log(singleMarket)
 
       return this.success(res, { ...singleMarket });
     } catch (e: any) {
       return this.fail(res, e.stack);
     }
   };
+
 }
