@@ -5,7 +5,7 @@ class CustomBMController {
   public static async saveBM(req: Request, res: Response): Promise<Response> {
     try {
       const obj = { ...req.body };
-      console.log(JSON.stringify(obj),"json format data");
+      // console.log(JSON.stringify(obj),"json format data");
       await redisSuperNode.set(
         `odds-market-${obj.marketId}`,
         JSON.stringify(obj),
