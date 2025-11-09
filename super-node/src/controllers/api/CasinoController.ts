@@ -18,7 +18,7 @@ export default class CasinoController extends ApiController {
       //     types[type] as any
       //   );
       let data: any = await redisReplica.get(types[type]);
-      console.log("datasdfff", types[type], data);
+      // console.log("datasdfff", types[type], data);
       if (newCasino.indexOf(type) > -1) return this.success(res, JSON.parse(data));
       data = data ? { data: JSON.parse(data) } : { data: [] };
 
