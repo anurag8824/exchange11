@@ -241,7 +241,7 @@ class OddsController {
 
       response = response ? { data: JSON.parse(response) } : { data: [] };
 
-      console.log(response,"response data for odds bet")
+      // console.log(response,"response data for odds bet")
 
 
       if (response.data && response.data.error) {
@@ -280,7 +280,7 @@ class OddsController {
         .filter((m: any) => m.SelectionId == SelectionId)
         .filter((m: any) => m.gtype === "session" || m.gtype === "fancy1");
 
-        console.log(market,"markets hahahahh")
+      // /  console.log(market,"markets hahahahh")
 
       return res.json({
         sports: market,
