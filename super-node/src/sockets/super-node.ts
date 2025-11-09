@@ -46,13 +46,13 @@ export function SuperNodeSocket() {
       if (marketData.type == "t10") {
         console.log("t10 matches", marketData);
       } else {
-        axios
-          .post(`${process.env.SITE_URL}/api/delete-market`, {
-            ...marketData,
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+        // axios
+        //   .post(`${process.env.SITE_URL}/api/delete-market`, {
+        //     ...marketData,
+        //   })
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
       }
       clientIo.emit("deactivateMarket", marketData);
     } catch (e: Error | any) {
