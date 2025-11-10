@@ -582,7 +582,7 @@ const CasinoWrapper = (props: any) => {
                       // src={`https://mac88-casino-stream.scoreswift.xyz/stream?stream_id=${gameId}`}
 
                       // src={`https://sfront.starrexch.me/casino-tv?id=${gameCode}`}
-                      src={`https://sfront.starrexch.me/casino-tv?id=${mappedCode}`}
+                      src={`https://time.starrexch.me/casino-tv?id=${mappedCode}`}
 
                     ></iframe>
                   )}
@@ -707,7 +707,7 @@ const CasinoWrapper = (props: any) => {
 
                         // src={`https://sfront.starrexch.me/casino-tv?id=${gameCode}`}
 
-                        src={`https://sfront.starrexch.me/casino-tv?id=${mappedCode}`}
+                        src={`https://time.starrexch.me/casino-tv?id=${mappedCode}`}
 
                         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                         seamless
