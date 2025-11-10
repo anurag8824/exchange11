@@ -490,35 +490,35 @@ class OddsController {
 //     }
 // }
 
-  // public static async getSessions(
-  //   req: Request,
-  //   res: Response
-  // ): Promise<Response> {
-  //   try {
-  //     const { MatchID } = req.query;
-  //     if (!MatchID) throw Error("MatchID is required field");
+  public static async getSessions(
+    req: Request,
+    res: Response
+  ): Promise<Response> {
+    try {
+      const { MatchID } = req.query;
+      if (!MatchID) throw Error("MatchID is required field");
 
-  //     let matchList = [];
-  //     const data = await redisReplica.get(`fancy-${MatchID}`);
-  //     if (data) matchList = JSON.parse(data);
-  //     if (req.originalUrl.includes("get-sessions-t10") && !data) {
-  //       const res = await api.get(`/get-sessions-t10?MatchID=${MatchID}`);
-  //       matchList = res.data.sports;
-  //     } else if (req.originalUrl.includes("get-sessions") && !data) {
-  //       const res = await api.get(`/get-sessions?MatchID=${MatchID}`);
-  //       matchList = res.data.sports;
-  //     }
+      let matchList = [];
+      const data = await redisReplica.get(`fancy-${MatchID}`);
+      if (data) matchList = JSON.parse(data);
+      if (req.originalUrl.includes("get-sessions-t10") && !data) {
+        const res = await api.get(`/get-sessions-t10?MatchID=${MatchID}`);
+        matchList = res.data.sports;
+      } else if (req.originalUrl.includes("get-sessions") && !data) {
+        const res = await api.get(`/get-sessions?MatchID=${MatchID}`);
+        matchList = res.data.sports;
+      }
 
-  //     return res.json({
-  //       sports: matchList,
-  //     });
-  //   } catch (e: any) {
-  //     return res.json({
-  //       sports: [],
-  //       error: e.message,
-  //     });
-  //   }
-  // }
+      return res.json({
+        sports: matchList,
+      });
+    } catch (e: any) {
+      return res.json({
+        sports: [],
+        error: e.message,
+      });
+    }
+  }
 
   // public static async fancyData(
   //   req: Request,
@@ -723,37 +723,37 @@ class OddsController {
 //     }
 // }
 
-public static async getSessions(
-  req: Request,
-  res: Response
-): Promise<Response> {
-  try {
-    const { MatchID,sportId} = req.query;
-    if (!MatchID) throw Error("MatchID is required field");
+// public static async getSessions(
+//   req: Request,
+//   res: Response
+// ): Promise<Response> {
+//   try {
+//     const { MatchID,sportId} = req.query;
+//     if (!MatchID) throw Error("MatchID is required field");
 
-    let matchList = [];
-    // const data = await redisReplica.get(`fancy-${MatchID}`);
-    const data:any = await GetsessionFromApi(MatchID,sportId)
-    matchList = data;
-    // if (data) matchList = JSON.parse(data);
-    if (req.originalUrl.includes("get-sessions-t10") && data.length ==0) {
-      const res = await api.get(`/get-sessions-t10?MatchID=${MatchID}`);
-      matchList = res.data.sports;
-    } else if (req.originalUrl.includes("get-sessions") && data.length ==0) {
-      const res = await api.get(`/get-sessions?MatchID=${MatchID}`);
-       matchList = res.data.sports;
-    }
+//     let matchList = [];
+//     // const data = await redisReplica.get(`fancy-${MatchID}`);
+//     const data:any = await GetsessionFromApi(MatchID,sportId)
+//     matchList = data;
+//     // if (data) matchList = JSON.parse(data);
+//     if (req.originalUrl.includes("get-sessions-t10") && data.length ==0) {
+//       const res = await api.get(`/get-sessions-t10?MatchID=${MatchID}`);
+//       matchList = res.data.sports;
+//     } else if (req.originalUrl.includes("get-sessions") && data.length ==0) {
+//       const res = await api.get(`/get-sessions?MatchID=${MatchID}`);
+//        matchList = res.data.sports;
+//     }
 
-    return res.json({
-      sports: matchList,
-    });
-  } catch (e: any) {
-    return res.json({
-      sports: [],
-      error: e.message,
-    });
-  }
-}
+//     return res.json({
+//       sports: matchList,
+//     });
+//   } catch (e: any) {
+//     return res.json({
+//       sports: [],
+//       error: e.message,
+//     });
+//   }
+// }
 
 public static async fancyData(
   req: Request,
