@@ -1121,55 +1121,61 @@ export class CasinoController extends ApiController {
     })
   }
  
-  setFancyResult = async () => {
-    const ResultCache: Record<string, any[]> = {};
+ setFancyResult = async () => {
+  const ResultCache: Record<string, any[]> = {};
 
-    try {
-      // 1. Fetch fancy list
-      const fancyResponse = await axios.get(
-        "https://api.diamondexch11.com/api/get-business-fancy-list"
-      );
+  try {
+    // 1. Fetch fancy list
+    const fancyResponse = await axios.get(
+      "https://api.diamondexch11.com/api/get-business-fancy-list"
+    );
 
-      const fancyList = fancyResponse?.data?.data?.list ?? [];
+    const fancyList = fancyResponse?.data?.data?.list ?? [];
 
-      if (!Array.isArray(fancyList) || fancyList.length === 0) {
-        console.warn("No fancy data received.");
-        return;
-      }
+    if (!Array.isArray(fancyList) || fancyList.length === 0) {
+      console.warn("No fancy data received.");
+      return;
+    }
 
-      // 2. Process one by one (avoids async map problems)
-      for (const fn of fancyList) {
-        const matchId = String(fn.matchId);
+    // 2. Group by matchId
+    const grouped: Record<string, any[]> = {};
+    for (const fn of fancyList) {
+      const matchId = String(fn.matchId);
+      if (!matchId) continue;
 
-        if (!matchId) continue;
+      if (!grouped[matchId]) grouped[matchId] = [];
+      grouped[matchId].push(fn);
+    }
 
-        // 3. Check cache
-        let matchData = ResultCache[matchId];
+    // 3. Process each matchId once
+    for (const matchId of Object.keys(grouped)) {
+      let matchData = ResultCache[matchId];
 
-        // 4. Fetch if not cached
-        if (!matchData) {
-          try {
-            const apiRes = await axios.get(
-              `https://fancypanel.xyz/pages/lottery/${matchId}`
-            );
+      // 4. Fetch once if not cached
+      if (!matchData) {
+        try {
+          const apiRes = await axios.get(
+            `https://fancypanel.xyz/pages/lottery/${matchId}`
+          );
 
-            matchData = apiRes?.data ?? [];
+          matchData = apiRes?.data ?? [];
 
-            if (!Array.isArray(matchData)) {
-              console.warn(`Invalid API response for matchId ${matchId}`);
-              continue;
-            }
-
-            ResultCache[matchId] = matchData;
-          } catch (err) {
-            console.error(`Failed fetching match data for matchId ${matchId}`, err);
+          if (!Array.isArray(matchData)) {
+            console.warn(`Invalid API response for matchId ${matchId}`);
             continue;
           }
+
+          ResultCache[matchId] = matchData;
+        } catch (err) {
+          console.error(`Failed fetching match data for matchId ${matchId}`, err);
+          continue;
         }
+      }
 
-        if (!matchData.length) continue;
+      if (!matchData.length) continue;
 
-        // 5. Find relevant entry
+      // 5. Process all fancy items of this matchId
+      for (const fn of grouped[matchId]) {
         const selection = String(fn.selectionName).toLowerCase();
 
         const target = matchData.find(
@@ -1184,12 +1190,12 @@ export class CasinoController extends ApiController {
         const payload = {
           message: "ok",
           result: target?.winner_name,
-          isRollback: "false",
-          runnerName: target.market_name,
+          isRollback: false,
+          runnerName: fn?.selectionName,
           matchId: Number(matchId),
         };
 
-        // 7. Send update
+        // 7. Update fancy result
         try {
           await axios.post(
             "https://api.diamondexch11.com/api/update-fancy-result",
@@ -1203,10 +1209,11 @@ export class CasinoController extends ApiController {
           );
         }
       }
-    } catch (error) {
-      console.error("Unexpected error in setFancyResult()", error);
     }
-  };
+  } catch (error) {
+    console.error("Unexpected error in setFancyResult()", error);
+  }
+};
 
   canculatePnltwo = ({ ItemBetList, selectionId, sid50, resultsids, data }: any) => {
     try {
