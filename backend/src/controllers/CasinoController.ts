@@ -1281,7 +1281,7 @@ export class CasinoController extends ApiController {
       case 'poker':
       case 'poker6':
       case 'lucky7':
-      case 'dt20'
+      case 'dt20':
 
 
 
