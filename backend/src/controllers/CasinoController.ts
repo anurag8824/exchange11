@@ -1281,6 +1281,7 @@ export class CasinoController extends ApiController {
       case 'poker':
       case 'poker6':
       case 'lucky7':
+      case 'dt20'
 
 
 
@@ -1322,7 +1323,7 @@ export class CasinoController extends ApiController {
       case 'ddb':
       case 'aaa':
       case 'AAA':
-      case 'dt20':
+      // case 'dt20':
       case 'dt20b':
       case 'dtl20':
       case 'dragontiger1Day':
