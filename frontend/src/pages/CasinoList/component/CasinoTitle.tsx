@@ -258,11 +258,11 @@ const CasinoTitle = (props: any) => {
       <div className='video-overlay'>
        <div className='imgspace d-flex'>
           <img
-            src={`/imgs/casino/cards/${lastResult.C1 == "1" ? "patti_back" : lastResult.C1}.png`}
+            src={`https://dzm0kbaskt4pv.cloudfront.net/v11/static/front/img/cards/${lastResult.C1 == "1" ? "patti_back" : lastResult.C1}.png`}
           />{' '}
           
           <img
-            src={`/imgs/casino/cards/${lastResult?.C2 == "1" ? "patti_back" : lastResult?.C2}.png`}
+            src={`https://dzm0kbaskt4pv.cloudfront.net/v11/static/front/img/cards/${lastResult?.C2 == "1" ? "patti_back" : lastResult?.C2}.png`}
           />
         </div>
       </div>
