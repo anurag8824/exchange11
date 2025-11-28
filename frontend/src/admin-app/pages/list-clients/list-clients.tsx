@@ -426,7 +426,7 @@ const ListClients = () => {
               }}
             >
               <span className='far fa-arrow-alt-circle-down' id='user-balance' />
-              <span className='far fa-arrow-alt-circle-up' />
+              {/* <span className='far fa-arrow-alt-circle-up' /> */}
             </div>
             {userbook && (
               <div className='master-balance-detail m-t-20' id='master-balance-detail'>
