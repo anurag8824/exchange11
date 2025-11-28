@@ -1446,6 +1446,7 @@ undodeleteCurrentBet = async (req: Request, res: Response): Promise<Response> =>
       )
       const json: any = {}
       let exposer = await this.getexposerfunction({ _id: userbet.userId }, true, json)
+        let exposer2 = await this.getcasinoexposerfunction({ _id: userbet.userId }, true, json)
       // balance event here
       return this.success(res, { success: true }, 'Bet deleted successfully')
     } catch (e: any) {
