@@ -1,3 +1,7 @@
+
+
+
+
 import React from 'react'
 import {
   useForm,
@@ -618,7 +622,7 @@ const AddUser = () => {
                                   max={userData?.userSetting?.[sportId].minBet}
                                   min={0}
                                   defaultValue={0}
-                                  // disabled={isPartnership}
+                                  disabled={isPartnership}
                                   type='number'
                                 />
                                 <span className='error' />
@@ -641,7 +645,7 @@ const AddUser = () => {
                           )}
                         </tr>
                         <tr>
-                          <td>Provide Max Bet</td>
+                          <td>Provide Min Bet</td>
                           {sportListState.sports?.map(({ _id, sportId }) =>
                             sportId == 1 || sportId == 2 || sportId == 4 ? (
                               <td key={_id}>
@@ -652,7 +656,7 @@ const AddUser = () => {
                                   placeholder={''}
                                   max={userData?.userSetting?.[sportId].maxBet}
                                   defaultValue={0}
-                                  // disabled={isPartnership}
+                                  disabled={isPartnership}
                                   min={0}
                                   type='number'
                                 />
@@ -687,7 +691,7 @@ const AddUser = () => {
                                   placeholder={''}
                                   max={userData?.userSetting?.[sportId].delay}
                                   defaultValue={0}
-                                  // disabled={isPartnership}
+                                  disabled={isPartnership}
                                   type='number'
                                 />
                                 <span className='error' />
