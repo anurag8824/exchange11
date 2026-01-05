@@ -199,7 +199,7 @@ export class BetController extends ApiController {
             selectionId: 1,
             originalId: 1,
             customId: 1,
-            GameType:1
+            gtype:1
           }
         }
       ]);
