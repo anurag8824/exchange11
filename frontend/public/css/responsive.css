@@ -441,7 +441,7 @@
   }
 
   .logo img {
-    height: 27px;
+    height: 35px;
   }
 
   .card-seven img {
@@ -497,7 +497,7 @@
   }
 
   .marqueeheader {
-    padding: 0px 10px 10px 10px;
+    /* padding: 0px 10px 10px 10px; */
   }
 
   .support-detail h2 {
@@ -539,7 +539,7 @@
     border-left: 0 solid #fff !important;
     border-right: 0 solid #fff !important;
     color: #fff;
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 500 !important;
     height: 100%;
     padding: 8px;
