@@ -77,9 +77,9 @@ const MatchListMobile = (props: any) => {
                     </td>
                   </tr>
                   <tr className='min-h-10 '>
-                    <td className='ln10' colSpan={6}>
+                    {/* <td className='ln10' colSpan={6}>
                       &nbsp;
-                    </td>
+                    </td> */}
                   </tr>
                   <tr>
                     <td colSpan={2} className='text-center p5 fw-600 tx-12'>
