@@ -20,7 +20,7 @@ const CasinoListItem = (props: any) => {
     <>
           {gamesList &&
             gamesList
-            .filter((item: any) => !item.isDisable &&   allowedMatchIds.includes(item.slug) &&  item.match_id !== -1)
+            .filter((item: any) => !item.isDisable &&   item.match_id !== -1)
             .map((Item: any, key: number) => {
               return (
                 <div className={"casino-list-item"} key={key}>
