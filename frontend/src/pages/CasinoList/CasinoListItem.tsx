@@ -15,18 +15,18 @@ const CasinoListItem = (props: any) => {
     if (!Item.isDisable && Item.match_id!=-1 ) navigate.go(`/casino/${Item.slug}/${Item.match_id}`)
       else toast.warn('This game is suspended by admin, please try again later')
   }
-  const allowedMatchIds = [23,22,40, 36 ,9,11,13,28,25,27,24,35];
+  const allowedMatchIds = ["lucky7", "dt20","dt202","teen", "teen8","teen9", "teen20","poker","dt6","aaa","abj","lucky7eu", "btable","card32","fivewicket","race20" ];
   return (
     <>
           {gamesList &&
             gamesList
-            .filter((item: any) => !item.isDisable &&   allowedMatchIds.includes(item.match_id) &&  item.match_id !== -1)
+            .filter((item: any) => !item.isDisable &&   allowedMatchIds.includes(item.slug) &&  item.match_id !== -1)
             .map((Item: any, key: number) => {
               return (
                 <div className={"casino-list-item"} key={key}>
                   <a href='#' onClick={(e) => onCasinoClick(e, Item)} className=''>
                       <div className="casino-list-item-banner" 
-                        style={{   backgroundImage: `url(${Item.image}${Item.slug}.jpg)`
+                        style={{   backgroundImage: `url(${Item.image})`
                       }}>
                       </div>
                       <div className='casino-list-name'>{Item.title}</div>
